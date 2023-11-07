@@ -4,9 +4,9 @@ name: Checks
 on: [push]
 
 jobs:
-  test-lint:
-    name: Test and Lint
-    runs-on: ubuntu-20.04
+  test-secrets:
+    name: Test Secrets
+    runs-on: ubuntu-latest
     steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -15,6 +15,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Test Secrets
+        run: |
+          echo "DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}"
+          echo "DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}"
       - name: Test
         run: docker-compose run --rm app sh -c "python manage.py test"
       - name: Lint
