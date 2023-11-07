@@ -2,7 +2,7 @@
 name: Checks
 
 on: [push]
-#test
+
 jobs:
   test-secrets:
     name: Test Secrets
